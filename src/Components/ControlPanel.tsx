@@ -1,6 +1,5 @@
 import { Button, Col } from 'react-bootstrap';
 import { Card } from '../interfaces/card';
-import CARDS from '../asset/cards.json'
 import { getRandomElement, shuffle } from '../utilities/data';
 import { UserList } from './UserList';
 import { useState } from 'react';
@@ -26,9 +25,8 @@ export function getLocalStorageUsers(): User[]{
 
 }
 
-export function ControlPanel({setCard, reveal, answerRevealed}: {setCard:(c: Card)=>void, reveal:(r:boolean)=>void, answerRevealed:boolean}): JSX.Element{
+export function ControlPanel({deck, showAddCardModal, setCard, reveal, answerRevealed}: {deck:Card[], showAddCardModal:(b:boolean)=>void, setCard:(c: Card)=>void, reveal:(r:boolean)=>void, answerRevealed:boolean}): JSX.Element{
     const [users, setUsers] = useState<User[]>(getLocalStorageUsers());
-    const [deck, setDeck] = useState<Card[]>(CARDS);
     function setRandomCard(){
         reveal(false);
         setCard(getRandomElement(deck))
@@ -40,14 +38,7 @@ export function ControlPanel({setCard, reveal, answerRevealed}: {setCard:(c: Car
         localStorage.setItem(LOCAL_STORAGE_USERS, JSON.stringify(users));
     }
     function addNewCard(){
-        const newCard: Card = {
-            id: Math.random(),
-            kind: "Custom",
-            prompt: window.prompt("What do you want the prompt to be?") || "NO PROMPT",
-            answer: window.prompt("What should the answer be?") || "NO ANSWER",
-        };
-        setDeck([...deck, newCard])
-
+        showAddCardModal(true);
     }
     return( 
     <Col>
