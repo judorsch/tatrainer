@@ -1,12 +1,21 @@
-import {Col} from 'react-bootstrap'
+import {Col, Card as BootstrapCard} from 'react-bootstrap'
 import { Card } from '../interfaces/card'
 
 
 export function CardViewer({card}: {card:Card}): JSX.Element {
     return( 
     <Col>
-        <h1>Card Viewer</h1>
-        <div>Prompt: {card.prompt}</div>
-        <div>Suggested Answer: {card.answer}</div>
+    <BootstrapCard>
+        <BootstrapCard.Body>
+            <BootstrapCard.Title>Card Viewer</BootstrapCard.Title>
+            <BootstrapCard.Text>
+            <strong>Prompt</strong>: {card.prompt}
+            </BootstrapCard.Text>
+            <BootstrapCard.Text>
+            <strong>Answer</strong>: {card.answer}
+            </BootstrapCard.Text>
+        </BootstrapCard.Body>
+
+    </BootstrapCard>
     </Col>)
 }
